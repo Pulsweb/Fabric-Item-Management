@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabric Item Management</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="logo.png" alt="Fabric Item Management" class="header-logo-img" />
+        <span>Microsoft Fabric</span>
+      </div>
+      <h1>Fabric Item Management</h1>
+      <p class="subtitle">Create and manage your Fabric resources</p>
+    </header>
+
+    <!-- Welcome screen (shown by default) -->
+    <section id="welcome">
+      <div class="welcome-intro">
+        <img src="logo.png" alt="Fabric Item Management" class="welcome-logo" />
+        <h2>What would you like to create?</h2>
+        <p>Select the type of Fabric item to provision.</p>
+      </div>
+      <div class="welcome-cards">
+
+        <!-- Storage — Coming Soon -->
+        <div class="welcome-card welcome-card--disabled" aria-disabled="true">
+          <div class="coming-soon-badge">Coming Soon</div>
+          <div class="welcome-card-icon">🗄️</div>
+          <div class="welcome-card-title">Storage</div>
+          <div class="welcome-card-desc">Create a Fabric Lakehouse or Warehouse to store and analyze your data.</div>
+        </div>
+
+        <!-- Data Agent -->
+        <button class="welcome-card welcome-card--available" onclick="startWizard('dataAgent')" type="button">
+          <div class="welcome-card-icon">🤖</div>
+          <div class="welcome-card-title">Data Agent</div>
+          <div class="welcome-card-desc">Create a Fabric conversational agent connected to your data sources.</div>
+          <div class="welcome-card-action">Get started →</div>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- Wizard (hidden until item type selected) -->
+    <div id="wizard" class="hidden">
+
+    <!-- Progress bar -->
+    <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="steps-indicator" id="stepsIndicator"></div>
+    </div>
+
+    <!-- Wizard steps -->
+    <main>
+
+      <!-- Step 1: Workspace -->
+      <section class="step" id="step-1" data-step="1">
+        <h2>Workspace</h2>
+        <p class="step-desc">Do you want to create a new workspace or reuse an existing one?</p>
+        <div class="choice-cards">
+          <label class="card" for="ws-new">
+            <input type="radio" id="ws-new" name="workspace_mode" value="new" />
+            <div class="card-icon">➕</div>
+            <div class="card-title">Create a new workspace</div>
+            <div class="card-desc">A new Fabric workspace will be created with the name you provide.</div>
+          </label>
+          <label class="card" for="ws-existing">
+            <input type="radio" id="ws-existing" name="workspace_mode" value="existing" />
+            <div class="card-icon">♻️</div>
+            <div class="card-title">Reuse an existing workspace</div>
+            <div class="card-desc">The runbook will use a workspace already present in your Fabric tenant.</div>
+          </label>
+        </div>
+        <div class="field" id="field-workspace-name">
+          <label for="workspace_name">Workspace name</label>
+          <input type="text" id="workspace_name" name="workspace_name" placeholder="e.g., MyWorkspace" autocomplete="off" />
+          <span class="field-hint" id="workspace-hint"></span>
+        </div>
+      </section>
+
+      <!-- Step 2: Capacity -->
+      <section class="step hidden" id="step-2" data-step="2">
+        <h2>Fabric Capacity</h2>
+        <p class="step-desc">If you are creating a new workspace, do you want to assign it to a specific Fabric capacity?</p>
+        <div class="choice-cards">
+          <label class="card" for="cap-yes">
+            <input type="radio" id="cap-yes" name="capacity_mode" value="yes" />
+            <div class="card-icon">⚡</div>
+            <div class="card-title">Assign to a capacity</div>
+            <div class="card-desc">The workspace will be created on the Fabric capacity you specify.</div>
+          </label>
+          <label class="card" for="cap-no">
+            <input type="radio" id="cap-no" name="capacity_mode" value="no" />
+            <div class="card-icon">🆓</div>
+            <div class="card-title">No specific capacity</div>
+            <div class="card-desc">The workspace will use the tenant's default capacity (Trial/Shared).</div>
+          </label>
+        </div>
+        <div class="field hidden" id="field-capacity-name">
+          <label for="capacity_name">Capacity name</label>
+          <input type="text" id="capacity_name" name="capacity_name" placeholder="e.g., my-capacity" autocomplete="off" />
+        </div>
+      </section>
+
+      <!-- Step 3: Agent -->
+      <section class="step hidden" id="step-3" data-step="3">
+        <h2>Conversational Agent</h2>
+        <p class="step-desc">Configure the Data Agent that will be created in your workspace.</p>
+        <div class="field">
+          <label for="agent_name">Agent name <span class="required">*</span></label>
+          <input type="text" id="agent_name" name="agent_name" placeholder="e.g., MyAgent" autocomplete="off" required />
+        </div>
+        <div class="field">
+          <label for="agent_description">Description <span class="optional">(optional)</span></label>
+          <textarea id="agent_description" name="agent_description" rows="3" placeholder="Describe the role of this agent..."></textarea>
+        </div>
+      </section>
+
+      <!-- Step 4: Admin user -->
+      <section class="step hidden" id="step-4" data-step="4">
+        <h2>Administrator</h2>
+        <p class="step-desc">Do you want to grant the <strong>Admin</strong> role to a user on this workspace?</p>
+        <div class="choice-cards">
+          <label class="card" for="admin-yes">
+            <input type="radio" id="admin-yes" name="admin_mode" value="yes" />
+            <div class="card-icon">👤</div>
+            <div class="card-title">Yes, add an administrator</div>
+            <div class="card-desc">A user will receive the Admin role on the created workspace.</div>
+          </label>
+          <label class="card" for="admin-no">
+            <input type="radio" id="admin-no" name="admin_mode" value="no" />
+            <div class="card-icon">⏭️</div>
+            <div class="card-title">No, skip this step</div>
+            <div class="card-desc">Only the Managed Identity will have Admin rights.</div>
+          </label>
+        </div>
+        <div class="field hidden" id="field-admin-user">
+          <label for="admin_user_object_id">User UPN or Object ID</label>
+          <input type="text" id="admin_user_object_id" name="admin_user_object_id"
+            placeholder="e.g., user@contoso.com or GUID" autocomplete="off" />
+          <span class="field-hint">You can enter an email address or an Object ID (GUID).</span>
+        </div>
+      </section>
+
+      <!-- Step 5: Review & Submit -->
+      <section class="step hidden" id="step-5" data-step="5">
+        <h2>Review &amp; Submit</h2>
+        <p class="step-desc">Review your settings before triggering the deployment.</p>
+        <div class="summary-grid" id="summaryGrid"></div>
+
+        <div class="webhook-section">
+          <label for="webhookUrl">Azure Automation Webhook URL <span class="required">*</span></label>
+          <input type="url" id="webhookUrl" placeholder="https://...azure-automation.net/webhooks?token=..." autocomplete="off" />
+          <span class="field-hint">Retrieve this URL from your Automation Account → Webhooks.</span>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Navigation -->
+    <footer class="wizard-footer">
+      <button class="btn btn-secondary" id="btnBack" onclick="navigate(-1)" disabled>← Back</button>
+      <div class="step-counter" id="stepCounter">Step 1 / 5</div>
+      <button class="btn btn-primary" id="btnNext" onclick="navigate(1)">Next →</button>
+    </footer>
+
+    <!-- Result panel (hidden until submit) -->
+    <div class="result-panel hidden" id="resultPanel">
+      <div class="result-icon" id="resultIcon"></div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-body" id="resultBody"></div>
+      <button class="btn btn-secondary" onclick="resetWizard()">Start over</button>
+    </div>
+
+    </div><!-- /#wizard -->
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

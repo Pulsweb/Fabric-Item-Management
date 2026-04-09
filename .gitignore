@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit webhook URLs, tokens, or credentials
+*.env
+.env
+secrets.json
+webhook.txt
+
+# Azure deployment artifacts generated locally
+.azure/
