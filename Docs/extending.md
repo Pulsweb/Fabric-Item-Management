@@ -8,7 +8,7 @@
 
 The solution is designed around a single item type (Data Agent) to keep it simple and focused. Adding support for a new item type (Lakehouse, Warehouse, Notebook, etc.) follows the same pattern:
 
-1. **Add a new wizard flow** in `AzureWebApp/index.html` — duplicate the existing Data Agent wizard cards and update the item type label.
+1. **Add a new wizard flow** in `AzureWebApp/index.html` duplicate the existing Data Agent wizard cards and update the item type label.
 2. **Add the item-type field** to the JSON payload in `AzureWebApp/app.js`.
 3. **Add a new creation function** in `AzureAutomation/Runbook.py`:
 
@@ -68,7 +68,7 @@ Instead of assigning individual users, accept an Entra Group Object ID and assig
 assign_workspace_role(workspace_id, group_object_id, "Group", "Member", token)
 ```
 
-No Graph API call is needed — group Object IDs can be passed directly to the Fabric role assignment API.
+No Graph API call is needed group Object IDs can be passed directly to the Fabric role assignment API.
 
 ---
 
@@ -87,9 +87,9 @@ Store these as Automation Account variables for easy configuration.
 
 ## Intelligent Item Recommendation (Roadmap)
 
-The most promising evolution of this solution is to turn the wizard into an **intelligent questionnaire**. Instead of asking the user *what* they want to create, ask about their use case, data, and goals — and automatically recommend the most appropriate Fabric item(s).
+The most promising evolution of this solution is to turn the wizard into an **intelligent questionnaire**. Instead of asking the user *what* they want to create, ask about their use case, data, and goals and automatically recommend the most appropriate Fabric item(s).
 
-This doubles as a **lightweight knowledge assessment**: analysing the answers can surface targeted governance recommendations and best practices at exactly the moment the user is most receptive — when they are configuring something for their own stated goal.
+This doubles as a **lightweight knowledge assessment**: analysing the answers can surface targeted governance recommendations and best practices at exactly the moment the user is most receptive when they are configuring something for their own stated goal.
 
 | Enhancement | Description |
 |---|---|

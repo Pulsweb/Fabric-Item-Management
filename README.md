@@ -1,10 +1,12 @@
-<center><img src="AzureWebApp/logo.png" alt="Fabric Item Management" width="128" /></center>
+<p align="center"><img src="AzureWebApp/logo.png" alt="Fabric Item Management" width="128" /></p>
 
 # Fabric Item Management
 
 > **Enabling the controlled use of specific Microsoft Fabric items without exposing them to the entire organization.**
 
 A template solution that lets end users provision Fabric items (starting with Data Agents) through a guided web wizard without ever needing direct Fabric creation rights. Governance, cost control, and naming conventions are enforced server-side by an Azure Automation Runbook running under a Managed Identity.
+
+>⚠️ Caution: This solution accelerator is not an official Microsoft product. It was developed as a proof of concept to demonstrate a possible approach. As such, no official support is provided, and there is a potential risk of failures or breaking changes.
 
 ---
 

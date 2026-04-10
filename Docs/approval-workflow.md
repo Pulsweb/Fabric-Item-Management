@@ -6,7 +6,7 @@
 
 ## Overview
 
-By default, the wizard submits the provisioning request directly to the Azure Automation Webhook — the Fabric item is created immediately with no human review. For organizations that want a **human-in-the-loop gate**, an approval step can be inserted between the SWA and the webhook.
+By default, the wizard submits the provisioning request directly to the Azure Automation Webhook the Fabric item is created immediately with no human review. For organizations that want a **human-in-the-loop gate**, an approval step can be inserted between the SWA and the webhook.
 
 This is useful when:
 
@@ -46,7 +46,7 @@ The simplest path for organizations already using Microsoft 365.
 ### Steps
 
 1. **Create a new Power Automate flow** with trigger: *When an HTTP request is received*.
-2. Copy the generated HTTP endpoint URL — this is what you will paste in the SWA wizard instead of the direct webhook URL.
+2. Copy the generated HTTP endpoint URL this is what you will paste in the SWA wizard instead of the direct webhook URL.
 3. Add an **Approval** action (built-in connector):
    - Assign to: the IT admin or Data Governance team
    - Title: `Fabric provisioning request: [workspace_name] / [agent_name]`
@@ -150,12 +150,12 @@ If you want the approval email to identify who made the request, add a **Step 0 
 }
 ```
 
-The Runbook ignores unknown fields, so no backend change is required — only the approval flow needs to read `requester_email`.
+The Runbook ignores unknown fields, so no backend change is required only the approval flow needs to read `requester_email`.
 
 ---
 
 ## Security Considerations
 
 - The Power Automate / Logic App endpoint becomes the new **externally exposed URL**. Apply IP restrictions or require authentication (e.g., Azure AD OAuth) if the SWA is not already restricted to internal users.
-- The actual **Automation Webhook URL** (the one with the bearer token) should only be stored inside the Logic App / Power Automate flow — never exposed to the browser.
+- The actual **Automation Webhook URL** (the one with the bearer token) should only be stored inside the Logic App / Power Automate flow never exposed to the browser.
 - Approval timeouts should be configured: auto-reject requests that are not actioned within a defined SLA (e.g., 48 hours) to avoid stale requests accumulating.
