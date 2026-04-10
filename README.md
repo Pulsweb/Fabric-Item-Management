@@ -53,7 +53,9 @@ End user  →  Azure Static Web App (wizard)
 
 ---
 
-## Outcome
+## Story
+
+Leo an end user don't have permission to create Fabric Item, he open the Web App and specify is need :
 
 ### Welcome screen — item type selection
 ![Welcome screen](Media/screenshot-welcome.png)
@@ -75,6 +77,13 @@ End user  →  Azure Static Web App (wizard)
 
 ### Step 6 — Deployment triggered
 ![Step 6: Deployment triggered](Media/screenshot-processing.png)
+
+### Step 7 — 
+![Step 7: Deployment triggered](Media/screenshot-AzureRubboksExecution.png)
+
+### Step 8 — Data Agent configuration
+![Step 8: Deployment triggered](Media/screenshot-AzureRubboksExecution.png)
+
 
 ---
 
