@@ -63,7 +63,7 @@ Leo an end user don't have permission to create Fabric Item, he open the Web App
 ### Step 1 — Workspace
 ![Step 1: Workspace](Media/screenshot-step1-workspace.png)
 
-### Step 2 — Fabric Capacity
+### Step 2 — Fabric Capacity (If required)
 ![Step 2: Capacity](Media/screenshot-step2-capacity.png)
 
 ### Step 3 — Conversational Agent
@@ -74,6 +74,8 @@ Leo an end user don't have permission to create Fabric Item, he open the Web App
 
 ### Step 5 — Review & Submit
 ![Step 5: Review & Submit](Media/screenshot-step5-review.png)
+
+Leo copy the Azure Automation Webhook URL containing the token that that administrator shared (it could be made diferently), something like that https://###.webhook.usw3.azure-automation.net/webhooks?token=###
 
 ### Step 6 — Deployment triggered
 ![Step 6: Deployment triggered](Media/screenshot-processing.png)
