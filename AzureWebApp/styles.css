@@ -614,3 +614,23 @@ footer {
   .footer-inner { flex-direction: column; gap: 10px; }
   .footer-actions { width: 100%; justify-content: flex-end; }
 }
+
+/* ─── Footer ─── */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 2rem;
+  font-size: 0.82rem;
+  color: #888;
+  border-top: 1px solid #e8e8e8;
+}
+
+.site-footer a {
+  color: #0f6cbd;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+

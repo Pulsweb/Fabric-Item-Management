@@ -331,22 +331,49 @@ def create_fabric_data_agent(
 # Entry point — parameters are passed via Runbook arguments (webhook or direct)
 # ---------------------------------------------------------------------------
 
-def parse_args() -> dict:
-    """Parse arguments passed by Azure Automation via sys.argv."""
-    args = {}
-    it = iter(sys.argv[1:])
-    for arg in it:
-        if arg.startswith("--"):
-            key = arg[2:]
-            try:
-                args[key] = next(it)
-            except StopIteration:
-                args[key] = ""
-    return args
+def _extract_request_body(raw: str) -> dict:
+    """
+    Azure Automation (Python) passes the entire webhook payload as a raw string
+    in sys.argv[1:], space-split.  The format is:
+      {WebhookName:...,RequestBody:{<valid JSON>},RequestHeader:{...}}
+    This function locates RequestBody:{ and extracts the balanced JSON object.
+    """
+    marker = "RequestBody:"
+    idx = raw.find(marker)
+    if idx == -1:
+        return {}
+    start = raw.index("{", idx + len(marker))
+    depth = 0
+    in_string = False
+    escape = False
+    for i, c in enumerate(raw[start:], start):
+        if escape:
+            escape = False
+            continue
+        if c == "\\" and in_string:
+            escape = True
+            continue
+        if c == '"':
+            in_string = not in_string
+            continue
+        if not in_string:
+            if c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    json_str = raw[start : i + 1]
+                    # Azure Automation passes newlines as literal \r\n escape sequences
+                    # (backslash + letter), not real CR/LF — decode them before parsing.
+                    json_str = json_str.replace('\\r\\n', '\r\n').replace('\\r', '\r').replace('\\n', '\n')
+                    return json.loads(json_str)
+    return {}
 
 
 def main():
-    args = parse_args()
+    # Azure Automation passes the webhook payload as a raw string split by spaces
+    # across sys.argv[1:] — NOT as --key value pairs.  Re-join and parse.
+    raw_argv = " ".join(sys.argv[1:])
 
     # --- Parse the webhook payload sent by the Static Web App (HTTP POST body) ---
     workspace_name       = ""
@@ -355,19 +382,17 @@ def main():
     capacity_name        = ""
     admin_user_object_id = ""
 
-    webhook_data_raw = args.get("WebhookData", "")
-    if webhook_data_raw:
+    if "RequestBody:" in raw_argv:
         try:
-            webhook_data  = json.loads(webhook_data_raw)
-            request_body  = json.loads(webhook_data.get("RequestBody", "{}"))
+            request_body         = _extract_request_body(raw_argv)
             workspace_name       = request_body.get("workspace_name", "")
             agent_name           = request_body.get("agent_name", "")
             agent_description    = request_body.get("agent_description", "")
             capacity_name        = request_body.get("capacity_name", "")
             admin_user_object_id = request_body.get("admin_user_object_id", "")
             print("[INFO] Parameters read from webhook payload.")
-        except (json.JSONDecodeError, TypeError, KeyError) as exc:
-            print(f"[WARN] Unable to parse WebhookData: {exc}")
+        except (json.JSONDecodeError, TypeError, ValueError) as exc:
+            print(f"[WARN] Unable to parse RequestBody from webhook data: {exc}")
 
     # --- Fallback: Automation Account Variables (for direct / scheduled runs) ---
     def _get_var(name: str, current_value: str) -> str:
