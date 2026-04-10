@@ -2,12 +2,13 @@
 
 # Fabric Item Management
 
-> [!NOTE]  
+> [!TIP]  
 > **Enabling the controlled use of specific Microsoft Fabric items without exposing them to the entire organization.**
 
 A template solution that lets end users provision Fabric items (starting with Data Agents) through a guided web wizard without ever needing direct Fabric creation rights. Governance, cost control, and naming conventions are enforced server-side by an Azure Automation Runbook running under a Managed Identity.
 
->⚠️ Caution: This solution accelerator is not an official Microsoft product. It was developed as a proof of concept to demonstrate a possible approach. As such, no official support is provided, and there is a potential risk of failures or breaking changes.
+> [!WARNING] 
+> This solution accelerator is not an official Microsoft product. It was developed as a proof of concept to demonstrate a possible approach. As such, no official support is provided, and there is a potential risk of failures or breaking changes.
 
 ---
 
@@ -20,7 +21,8 @@ Many organizations want to leverage Microsoft Fabric items such as Data Agents, 
 
 While security groups can be applied at the tenant or capacity level, this model remains all‑or‑nothing. In practice, this does not align with many real‑world scenarios for example, allowing users to create Data Agents on a specific capacity without granting them permission to create other items such as Notebooks.
 
-⚠️ Important: I do not recommend disabling Fabric workloads. Microsoft Fabric was designed as a unified SaaS platform, where tightly integrated workloads deliver a consistent experience and maximum value. Although the need for more granular controls is well understood and actively monitored by the Product Group, it is not currently available.
+> [!NOTE] 
+> I do not recommend disabling Fabric workloads. Microsoft Fabric was designed as a unified SaaS platform, where tightly integrated workloads deliver a consistent experience and maximum value. Although the need for more granular controls is well understood and actively monitored by the Product Group, it is not currently available.
 
 This solution addresses a key question: *How can we enable targeted, controlled, and gradual access to specific Fabric items without compromising cost control, governance, or platform performance?*
 
