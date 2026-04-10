@@ -97,9 +97,22 @@
 
 ---
 
-## Step 6 — Deploy the Azure Static Web App
+## Step 6 — Host the Web App
 
-### Option A — Azure Portal
+### Option A — Run locally (no deployment needed)
+
+Because the wizard is a plain static web page, you can run it directly from your computer without deploying anything to Azure.
+
+1. Clone or download this repository to your machine.
+2. Open `AzureWebApp/index.html` in any modern browser (Chrome, Edge, Firefox).
+3. The full 5-step wizard is immediately available.
+4. On the final step, paste your Webhook URL and click **🚀 Deploy** — the browser POSTs directly to Azure Automation.
+
+> This is the fastest way to get started and is perfectly suitable for internal or personal use. No web server, no hosting cost, no CI/CD pipeline required.
+
+---
+
+### Option B — Azure Static Web App (Portal)
 
 1. Create a new **Static Web App** resource in the Portal.
 2. After creation, deploy the `AzureWebApp/` folder using the **Azure Static Web Apps CLI**:
@@ -109,7 +122,7 @@
    swa deploy ./AzureWebApp --deployment-token <YOUR-SWA-DEPLOYMENT-TOKEN> --env production
    ```
 
-### Option B — GitHub Actions (CI/CD)
+### Option C — GitHub Actions (CI/CD)
 
 Link the SWA to your GitHub repository. Azure will generate a workflow automatically. Set the **app location** to `AzureWebApp/`.
 

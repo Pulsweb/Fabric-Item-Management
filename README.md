@@ -8,14 +8,23 @@ A template solution that lets end users provision Fabric items (starting with Da
 
 ## Outcome
 
-> 📸 *Screenshots will be added here. Replace this section with your own images once available.*
+### Welcome screen — item type selection
+![Welcome screen](Media/screenshot-welcome.png)
 
-<!-- Add your screenshots below. Example:
-![Wizard welcome screen](Media/screenshot-welcome.png)
-![Step 3 – Agent creation](Media/screenshot-agent-step.png)
-![Azure Automation job output](Media/screenshot-job-output.png)
-![Data Agent in Fabric workspace](Media/screenshot-fabric-agent.png)
--->
+### Step 1 — Workspace
+![Step 1: Workspace](Media/screenshot-step1-workspace.png)
+
+### Step 2 — Fabric Capacity
+![Step 2: Capacity](Media/screenshot-step2-capacity.png)
+
+### Step 3 — Conversational Agent
+![Step 3: Agent](Media/screenshot-step3-agent.png)
+
+### Step 4 — Administrator
+![Step 4: Admin](Media/screenshot-step4-admin.png)
+
+### Step 5 — Review & Submit
+![Step 5: Review & Submit](Media/screenshot-step5-review.png)
 
 ---
 
@@ -23,11 +32,11 @@ A template solution that lets end users provision Fabric items (starting with Da
 
 | | |
 |---|---|
-| 🏗️ [Architecture & How It Works](docs/architecture.md) | Component diagram, data flow, security model |
-| 🚀 [Deployment Guide](docs/deployment-guide.md) | Step-by-step setup from zero to running |
-| ✅ [Approval Workflow](docs/approval-workflow.md) | Add a human-in-the-loop gate before provisioning |
-| 🔧 [Troubleshooting](docs/troubleshooting.md) | Common errors and fixes |
-| 🔭 [Extending the Solution](docs/extending.md) | Add new item types, audit logging, naming rules |
+| 🏗️ [Architecture & How It Works](Docs/architecture.md) | Component diagram, data flow, security model |
+| 🚀 [Deployment Guide](Docs/deployment-guide.md) | Run locally (open `index.html`) or deploy to Azure Static Web App |
+| ✅ [Approval Workflow](Docs/approval-workflow.md) | Add a human-in-the-loop gate before provisioning |
+| 🔧 [Troubleshooting](Docs/troubleshooting.md) | Common errors and fixes |
+| 🔭 [Extending the Solution](Docs/extending.md) | Add new item types, audit logging, naming rules |
 
 ---
 
@@ -55,7 +64,7 @@ End user  →  Azure Static Web App (wizard)
 ```
 Fabric-Item-Management/
 ├── README.md
-├── docs/
+├── Docs/
 │   ├── architecture.md          # Architecture diagram and component descriptions
 │   ├── deployment-guide.md      # Step-by-step deployment instructions
 │   ├── approval-workflow.md     # Approval workflow integration guide
@@ -82,16 +91,18 @@ Fabric-Item-Management/
 - **Least-privilege** — the Managed Identity has only `User.Read.All` on Graph and membership on target Fabric workspaces.
 - **XSS prevention** — all user input is passed through `escapeHtml()` before DOM insertion.
 
-See [Architecture](docs/architecture.md) for the full security model.
+See [Architecture](Docs/architecture.md) for the full security model.
 
 ---
 
 ## Authors
 
-Co-designed with the invaluable input of **Emilie** and **Christopher**, and accelerated using VS Code Copilot and Claude Sonnet 4.6.
+Co-designed with the invaluable input of [Emilie Beau](https://www.linkedin.com/in/emilie-beau/) and [Christopher Maneu](https://www.linkedin.com/in/cmaneu/), and accelerated using VS Code Copilot and Claude Sonnet 4.6.
 
 *Keep it simple. Keep it controlled. Keep it scalable.*
 
 ---
 
 **Built with ❤️ for the Microsoft Fabric community**
+
+

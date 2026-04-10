@@ -6,36 +6,13 @@
 
 ## Context & Problem
 
-Many organizations want to harness the power of Microsoft Fabric for specific use cases — Data Agents, Lakehouses, Notebooks — without opening all Fabric capabilities to every user. The main concerns are:
+Many organizations want to harness the power of Microsoft Fabric — Data Agents, Lakehouses, Notebooks — without opening all Fabric capabilities to every user. The main concerns are:
 
 - **Overconsumption of capacity** in environments where Power BI workloads already run
 - **Duplication** with existing cloud or data platform investments
 - **Governance** — who can create what, and where
 
 The Fabric product group is working on granular workload deactivation, but it is not yet generally available. This solution answers: *How do we enable targeted, controlled, gradual access to specific Fabric items without compromising costs, governance, and performance?*
-
----
-
-## Solution Overview
-
-```
-End user (no Fabric creation rights)
-    │
-    ▼
-Azure Static Web App (wizard UI)
-    │
-    │  POST {workspace_name, agent_name, capacity_name, admin_user}
-    ▼
-Azure Automation Webhook
-    │
-    ▼
-Azure Automation Runbook (Python 3.10)
-    │  System-Assigned Managed Identity
-    ├─► Fabric REST API  ── create/find Workspace, assign Capacity, create Data Agent
-    └─► Microsoft Graph  ── resolve UPN → Object ID (optional), assign workspace roles
-```
-
-**Key principle**: the end user never needs the right to create Fabric items. The Runbook acts on their behalf, creates the item, and grants them the minimum required workspace role upon success.
 
 ---
 
