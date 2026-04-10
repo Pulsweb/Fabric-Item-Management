@@ -124,6 +124,8 @@ IT can track execution in the Azure Portal under **Automation Account → Jobs**
 
 ![Step 7 — Azure Automation job output](Media/screenshot-AzureRubboksExecution.png)
 
+![Step 7 — Deployment completetion](Media/screenshot-DeploymentCompletetion.png)
+
 ---
 
 ### 8. The Data Agent is ready in Fabric
