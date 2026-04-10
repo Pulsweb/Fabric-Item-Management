@@ -105,7 +105,7 @@ def get_object_id_from_token(token: str) -> str:
     return payload["oid"]
 
 
-def poll_operation(operation_url: str, token: str, max_wait: int = 120) -> dict:
+def poll_operation(operation_url: str, token: str, max_wait: int = 300) -> dict:
     """Poll a Fabric async operation until completion or timeout (max_wait seconds)."""
     headers = {"Authorization": f"Bearer {token}"}
     elapsed = 0
@@ -127,7 +127,9 @@ def poll_operation(operation_url: str, token: str, max_wait: int = 120) -> dict:
             if status in ("failed", "cancelled"):
                 raise RuntimeError(f"Async operation failed: {json.dumps(data, indent=2)}")
 
-            retry_after = int(resp.getheader("Retry-After", 5))
+            # Guard against Retry-After: 0 which would cause an infinite loop
+            raw_retry = resp.getheader("Retry-After", "5")
+            retry_after = max(2, int(raw_retry))
 
     raise TimeoutError(f"Timeout ({max_wait}s) waiting for Data Agent creation to complete.")
 

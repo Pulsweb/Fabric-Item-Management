@@ -1,3 +1,5 @@
+![](AzureWebApp/logo.png)
+
 # Fabric Item Management
 
 > **Enabling the controlled use of specific Microsoft Fabric items without exposing them to the entire organization.**
