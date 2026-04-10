@@ -1,4 +1,4 @@
-![](AzureWebApp/logo.png)
+<img src="AzureWebApp/logo.png" alt="Fabric Item Management" width="64" />
 
 # Fabric Item Management
 

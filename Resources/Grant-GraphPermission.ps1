@@ -3,8 +3,7 @@
 # Microsoft Graph to the Automation Account's Managed Identity
 # ============================================================
 
-# Object ID of the Managed Identity (replace with your actual value — visible in
-# Automation Account → Identity → System assigned → Object ID)
+# Object ID of the Managed Identity (replace with your actual value — visible in Automation Account → Identity → System assigned → Object ID)
 $ManagedIdentityObjectId = "###-###-###-###-############"
 
 # Connect to Microsoft Graph with sufficient permissions
