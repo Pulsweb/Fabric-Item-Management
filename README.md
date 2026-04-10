@@ -2,6 +2,7 @@
 
 # Fabric Item Management
 
+> [!NOTE]  
 > **Enabling the controlled use of specific Microsoft Fabric items without exposing them to the entire organization.**
 
 A template solution that lets end users provision Fabric items (starting with Data Agents) through a guided web wizard without ever needing direct Fabric creation rights. Governance, cost control, and naming conventions are enforced server-side by an Azure Automation Runbook running under a Managed Identity.
