@@ -4,18 +4,6 @@
 
 ---
 
-## Context & Problem
-
-Many organizations want to harness the power of Microsoft Fabric — Data Agents, Lakehouses, Notebooks — without opening all Fabric capabilities to every user. The main concerns are:
-
-- **Overconsumption of capacity** in environments where Power BI workloads already run
-- **Duplication** with existing cloud or data platform investments
-- **Governance** — who can create what, and where
-
-The Fabric product group is working on granular workload deactivation, but it is not yet generally available. This solution answers: *How do we enable targeted, controlled, gradual access to specific Fabric items without compromising costs, governance, and performance?*
-
----
-
 ## Architecture Diagram
 
 ```mermaid

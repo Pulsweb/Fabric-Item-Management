@@ -6,6 +6,20 @@ A template solution that lets end users provision Fabric items (starting with Da
 
 ---
 
+## Context & Problem
+
+Many organizations want to harness the power of Microsoft Fabric — Data Agents, Lakehouses, Notebooks — without opening all Fabric capabilities to every user. The main concerns are:
+
+- **Overconsumption of capacity** in environments where Power BI workloads already run
+- **Duplication** with existing cloud or data platform investments
+- **Governance** — who can create what, and where
+
+The Fabric product group is working on granular workload deactivation, but it is not yet generally available. This solution answers: *How do we enable targeted, controlled, gradual access to specific Fabric items without compromising costs, governance, and performance?*
+
+---
+
+
+
 ## Outcome
 
 ### Welcome screen — item type selection
@@ -25,6 +39,9 @@ A template solution that lets end users provision Fabric items (starting with Da
 
 ### Step 5 — Review & Submit
 ![Step 5: Review & Submit](Media/screenshot-step5-review.png)
+
+### Step 6 — Deployment triggered
+![Step 6: Deployment triggered](Media/screenshot-processing.png)
 
 ---
 
@@ -98,8 +115,6 @@ See [Architecture](Docs/architecture.md) for the full security model.
 ## Authors
 
 Co-designed with the invaluable input of [Emilie Beau](https://www.linkedin.com/in/emilie-beau/) and [Christopher Maneu](https://www.linkedin.com/in/cmaneu/), and accelerated using VS Code Copilot and Claude Sonnet 4.6.
-
-*Keep it simple. Keep it controlled. Keep it scalable.*
 
 ---
 

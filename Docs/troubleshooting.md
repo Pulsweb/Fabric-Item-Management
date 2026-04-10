@@ -14,7 +14,7 @@
 | `Unable to resolve UPN` | `User.Read.All` not granted to the MI | Run `Resources/Grant-GraphPermission.ps1` with the correct Object ID |
 | `Workspace 'X' already exists but the Managed Identity is not a member` | Workspace exists but MI has no access | Add the MI as a member of the workspace in Fabric UI, then re-run |
 | `ItemDisplayNameAlreadyInUse` | A Data Agent with that name already exists in the workspace | Use a different agent name, or delete the existing agent in Fabric first |
-| SWA shows "Connection error" | Incorrect webhook URL, or CORS / network issue | Verify the webhook URL; confirm the SWA can reach `*.azure-automation.net` |
+| SWA shows "Connection error / Failed to fetch" | Browser CORS preflight blocked by Azure Automation (old app version) | Update to the latest `AzureWebApp/app.js` — it now uses `mode: no-cors` which avoids the preflight entirely |
 | `[WARN] Unable to parse RequestBody` | The JSON body sent by the SWA is malformed | Check the payload in the **Input** tab of the Automation job |
 | Runbook job shows `202 Accepted` but nothing is created | Parameters were not passed to the runbook (old version of Runbook.py) | Ensure you are using the latest version of `AzureAutomation/Runbook.py` |
 

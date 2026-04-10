@@ -273,28 +273,27 @@ async function submitWizard() {
   setResult('loading', '⏳', 'Deployment in progress…', 'The Azure Automation runbook has been triggered. This may take a few seconds.');
 
   try {
-    const response = await fetch(webhookUrl, {
+    // Azure Automation webhooks do not return CORS headers.
+    // Using mode:'no-cors' + Content-Type:'text/plain' avoids the CORS preflight
+    // and sends the request as a simple POST. The response is opaque (unreadable)
+    // but the webhook is reliably triggered server-side.
+    await fetch(webhookUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload),
     });
 
-    if (response.ok) {
-      setResult('success', '✅', 'Deployment triggered successfully!',
-        `The runbook has been triggered with the following parameters:<br>
-        <strong>Workspace:</strong> ${escapeHtml(payload.workspace_name)}<br>
-        <strong>Agent:</strong> ${escapeHtml(payload.agent_name)}<br>
-        Check your Automation Account logs to track execution.`
-      );
-    } else {
-      const body = await response.text();
-      setResult('error', '❌', `HTTP Error ${response.status}`,
-        `The webhook returned an error:<br><code>${escapeHtml(body)}</code>`);
-    }
+    setResult('success', '✅', 'Deployment triggered!',
+      `The runbook has been triggered with the following parameters:<br><br>
+      <strong>Workspace:</strong> ${escapeHtml(payload.workspace_name)}<br>
+      <strong>Agent:</strong> ${escapeHtml(payload.agent_name)}<br><br>
+      Check your <strong>Automation Account → Jobs</strong> in the Azure Portal to track execution.`
+    );
   } catch (err) {
     setResult('error', '❌', 'Connection error',
-      `Unable to reach the webhook.<br><code>${escapeHtml(err.message)}</code><br>
-      Verify that the webhook URL is correct and that CORS is configured on your Automation Account.`
+      `Unable to send the request.<br><code>${escapeHtml(err.message)}</code><br><br>
+      Verify that the webhook URL is correct and that your network can reach <code>*.azure-automation.net</code>.`
     );
   }
 }
