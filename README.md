@@ -1,4 +1,4 @@
-<img src="AzureWebApp/logo.png" alt="Fabric Item Management" width="128" />
+<center><img src="AzureWebApp/logo.png" alt="Fabric Item Management" width="128" /></center>
 
 # Fabric Item Management
 
@@ -68,7 +68,7 @@ Here is how Leo provisions his Data Agent in minutes, without ever touching the 
 
 Leo opens the web app in his browser. The welcome screen presents the available Fabric item types. He clicks **Data Agent** to get started.
 
-![Welcome screen — item type selection](Media/screenshot-welcome.png)
+![Step 1 — Welcome screen — item type selection](Media/screenshot-welcome.png)
 
 ---
 
@@ -76,31 +76,31 @@ Leo opens the web app in his browser. The welcome screen presents the available 
 
 Leo specifies whether to create a new Fabric workspace or reuse an existing one. He enters a workspace name. If the workspace already exists and the Managed Identity is a member, it will be reused; otherwise a new one is created automatically.
 
-![Step 1 — Workspace](Media/screenshot-step1-workspace.png)
+![Step 2 — Workspace](Media/screenshot-step1-workspace.png)
 
 ---
 
 ### 3. Assign a Fabric Capacity (optional)
 
-If the workspace is new, Leo can assign it to a specific Fabric capacity useful when the organization wants to isolate workloads or control costs. If no capacity is selected, the workspace is created on the tenant's default (Trial/Shared) capacity.
+For new workspaces, Leo can assign a dedicated Fabric capacity to isolate workloads or control costs. An IT workflow, driven by user input, can assign, modify, or validate this setup with Leo’s approval.
 
-![Step 2 — Fabric Capacity](Media/screenshot-step2-capacity.png)
+![Step 3 — Fabric Capacity](Media/screenshot-step2-capacity.png)
 
 ---
 
 ### 4. Name the Data Agent
 
-Leo gives the Data Agent a name and an optional description. This is the name that will appear in his Fabric workspace once the runbook completes.
+Leo gives the Data Agent a name and an optional description and IT could enforce naming standards automatically.
 
-![Step 3 — Conversational Agent](Media/screenshot-step3-agent.png)
+![Step 4 — Conversational Agent](Media/screenshot-step3-agent.png)
 
 ---
 
 ### 5. Set an administrator (optional)
 
-Leo can optionally designate a user — by email address or Entra Object ID — to receive the Admin role on the newly created workspace. The runbook resolves the UPN to an Object ID via Microsoft Graph automatically.
+Leo can optionally designate a user by email address or Entra Object ID to receive the Admin role on the newly created workspace. The runbook resolves the UPN to an Object ID via Microsoft Graph automatically.
 
-![Step 4 — Administrator](Media/screenshot-step4-admin.png)
+![Step 5 — Administrator](Media/screenshot-step4-admin.png)
 
 ---
 
@@ -108,7 +108,7 @@ Leo can optionally designate a user — by email address or Entra Object ID — 
 
 Leo reviews his configuration, pastes the webhook URL that his administrator shared with him, and clicks **🚀 Deploy**. The browser sends the parameters directly to Azure Automation — no server infrastructure required on Leo's side.
 
-![Step 5 — Review & Submit](Media/screenshot-step5-review.png)
+![Step 6 — Review & Submit](Media/screenshot-step5-review.png)
 
 > The webhook URL is the only secret in this solution. It should be shared through a secure channel and rotated when needed.
 
@@ -118,9 +118,9 @@ Leo reviews his configuration, pastes the webhook URL that his administrator sha
 
 Behind the scenes, the Azure Automation Runbook is triggered immediately. It creates the workspace, assigns the capacity, creates the Data Agent, and grants roles all via REST API calls authenticated with the Managed Identity. Leo sees a confirmation in the web app that the deployment was triggered.
 
-![Step 6 — Deployment triggered](Media/screenshot-processing.png)
+![Step 7 — Deployment triggered](Media/screenshot-processing.png)
 
-Leo can track execution in the Azure Portal under **Automation Account → Jobs**.
+IT can track execution in the Azure Portal under **Automation Account → Jobs**.
 
 ![Step 7 — Azure Automation job output](Media/screenshot-AzureRubboksExecution.png)
 
@@ -128,18 +128,13 @@ Leo can track execution in the Azure Portal under **Automation Account → Jobs*
 
 ### 8. The Data Agent is ready in Fabric
 
-Within moments, Leo's Data Agent appears in his Fabric workspace, ready to be connected to data sources and used by his team without Leo ever having needed Fabric item creation rights.
+The Data Agent appears instantly in Leo’s workspace, fully usable, without ever granting him Fabric item creation rights.
 
 ![Step 8 — Data Agent in Fabric](Media/screenshot-FabricDataAgent.png)
-
----
-
-### 9. Leo takes ownership and configures the agent
 
 Here is the key insight of this solution: **creation rights and ownership are two different things**. Leo never had and still does not have permission to create Fabric items. But once the Managed Identity has provisioned the workspace and the Data Agent on his behalf, Leo is granted the **Admin role** on the workspace. From that point on, he has full control over the items inside it.
 
 Leo can now open the Data Agent in Microsoft Fabric, connect it to his data sources, define its instructions and behaviour, and iterate on its configuration just like any workspace owner would. The governance boundary was enforced at creation time; everything that follows is entirely in Leo's hands.
-
 
 ---
 
