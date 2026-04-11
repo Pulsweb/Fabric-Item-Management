@@ -24,7 +24,21 @@ While security groups can be applied at the tenant or capacity level, this model
 > [!NOTE] 
 > I do not recommend disabling Fabric workloads. Microsoft Fabric was designed as a unified SaaS platform, where tightly integrated workloads deliver a consistent experience and maximum value. Although the need for more granular controls is well understood and actively monitored by the Product Group, it is not currently available.
 
-This solution addresses a key question: *How can we enable targeted, controlled, and gradual access to specific Fabric items without compromising cost control, governance, or platform performance?*
+Fabric policies announced at the latest FabCon (currently in Private Preview), introduce policy-based controls in Microsoft Purview to automatically govern who can create specific Fabric items and in which workspaces. Using the new Policies Center in the OneLake catalog, capacity admins can restrict actions such as Notebook creation to selected users and workspaces. Fabric enforces these rules automatically, blocks non-compliant actions, and provides clear user feedback. Initial policies focus on Item Creation and Data Sharing, with more coming soon.
+
+This sample solution remains valuable as a **complement** to Fabric policies and in several dimensions. Fabric policies will answer *who* can create *what* and *where*. This solution is capable to answers **how**: Guiding end users through an opinionated, organization-aware provisioning experience that enforces decisions policies cannot make on their own.
+
+Where this solution differentiates and complements native Fabric policies:
+
+- **Naming conventions** : The runbook can validate and enforce workspace, agent, and item names against your organization's taxonomy before any Fabric API call is made, returning clear feedback to the user before the item is ever created.
+- **Intelligent capacity selection** : Based on answers collected in the wizard (workload type, expected concurrency, sensitivity), the runbook can automatically select or recommend the right Fabric capacity, keeping Power BI workloads isolated from data engineering or AI workloads.
+- **Dependency-aware provisioning** : Rather than creating a single item in isolation, the runbook can provision a curated set of dependent items (workspace, Lakehouse, Data Agent, shortcuts) as a coherent unit, reflecting your organization's reference architecture and ensuring nothing is forgotten.
+- **Storage type guidance** : Based on the user's project description (structured data, unstructured files, streaming events), the workflow can steer the end user toward the right storage primitive — Lakehouse, Warehouse, Eventhouse, or KQL Database — enforcing architectural decisions at creation time rather than after the fact.
+- **Best-practice blueprints** : The web wizard can embed organizational knowledge: which items to combine, which SKUs to avoid, which data platform dependencies already exist (e.g., link to an existing Azure Data Factory or Synapse workspace), so that each provisioning request is consistent with the broader data estate.
+- **Human-in-the-loop approval** : For sensitive environments or high-capacity requests, the runbook can pause and route the request through an approval gate (Power Automate, ServiceNow, email) before any resource is created something Fabric policies do not currently provide.
+- **Audit trail and chargeback** : Every provisioning event is logged with the requestor identity, chosen capacity, and item names, making cost attribution and governance reporting straightforward.
+
+In short: *Fabric policies define the rules of the road; this solution is the guided onboarding experience that makes sure every driver starts the journey correctly based on organization standard.*
 
 ---
 
